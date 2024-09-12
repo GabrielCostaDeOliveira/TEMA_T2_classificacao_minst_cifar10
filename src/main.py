@@ -77,6 +77,6 @@ def run(data, name_dataset):
 
 #run(minst(), 'minst')
 
-run(cifar10(), 'cifar10')
+run(cifar(), 'cifar10')
 
 
