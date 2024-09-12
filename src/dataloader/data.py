@@ -28,8 +28,8 @@ def cifar():
 
 
     pca = PCA(n_components=0.95)  # Manter 95% da variância
-    x_train = pca.fit_transform(x_train_flattened)
-    x_test = pca.transform(x_test_flattened)
+    x_train = pca.fit_transform(x_train)
+    x_test = pca.transform(x_test)
 
     return x_train, x_test, y_train, y_test
 
