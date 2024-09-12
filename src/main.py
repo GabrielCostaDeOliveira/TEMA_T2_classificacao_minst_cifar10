@@ -1,5 +1,5 @@
 from models.models import Models
-from dataloader.data import minst, cifar10
+from dataloader.data import minst, cifar
 
 import os
 

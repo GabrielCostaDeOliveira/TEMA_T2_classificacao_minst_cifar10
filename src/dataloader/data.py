@@ -1,4 +1,3 @@
-import pandas as pd
 from sklearn.datasets import load_digits
 
 from sklearn.model_selection import train_test_split
@@ -16,7 +15,7 @@ def minst():
 
 
 
-def cifar10():
+def cifar():
     x_train, y_train, x_test, y_test = cifar10.load_data()
 
     return x_train.reshape((len(digits.images), -1)), x_test.reshape((len(digits.images), -1)), y_train.reshape((len(digits.images), -1)), y_test.reshape((len(digits.images), -1))
