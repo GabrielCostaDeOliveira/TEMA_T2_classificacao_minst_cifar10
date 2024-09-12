@@ -10,7 +10,7 @@ class Models:
         self.models_dict = {
 
             "LogisticRegression": (
-                LogisticRegression (max_iter=500),  
+                LogisticRegression (max_iter= 3000),  
                 {'clf__C': [10**x for x in range(-5, 10)], 
                  'clf__penalty': ['l1', 'l2'], 
                  'clf__solver': ['liblinear', 'saga']}
