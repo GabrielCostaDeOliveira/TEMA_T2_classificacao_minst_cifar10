@@ -1,28 +1,24 @@
-from models.models import Models
 import os
 
+from models.models import Models
+from dataloader.data import minst
+
+from sklearn.model_selection import train_test_split
 
 
+from sklearn.metrics import classification_report
+
+
+df = minst();
+
+x_train, x_test, y_train, y_test = train_test_split(df.x, df. y);
+
+## carregando modelos
 print("carregando modelos")
 models = Models();
 
-## carregando dados
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_digits
-
-digits = load_digits()
-
-n_samples = len(digits.images)
-data = digits.images.reshape((n_samples, -1))
-
-
-x_train, x_test, y_train, y_test = train_test_split(
-    data, digits.target, test_size=0.5, shuffle=False
-)
-
 ## treinando
 for name, clf in models.get_grid_search():
-
 
     print ("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.")
 
@@ -32,7 +28,7 @@ for name, clf in models.get_grid_search():
 
     predictions = clf.predict(x_test)
 
-    report = data.classification_report(y_test, predictions)
+    report = classification_report(y_test, predictions)
 
 
     ## save classification_report
