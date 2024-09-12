@@ -44,7 +44,7 @@ for name, clf in models.get_grid_search():
 
 
     ## save classification_report
-    path = './res/'+name;
+    path = './res/'+name + '/';
     if not os.path.exists(path):
         os.makedirs(path)
 
