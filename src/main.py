@@ -75,8 +75,8 @@ def run(data, name_dataset):
         with open(path + "params" + '.txt', 'w') as f:
             f.write(str(clf.best_params_))
 
-run(minst(), 'minst')
+#run(minst(), 'minst')
 
-# run(cifar10(), 'cifar')
+run(cifar10(), 'cifar10')
 
 
