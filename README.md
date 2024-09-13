@@ -116,48 +116,52 @@ pip install -r requirements.txt
 Após a instalação das dependências, você pode executar o programa principal do projeto usando o seguinte comando:
 
 ```bash
-python src/main.py
+python3 src/main.py
 ```
 
 ## Analisando Resultados
 
-Para avaliar a performance dos classificadores aplicados aos conjuntos de dados MNIST e CIFAR-10, vamos analisar as métricas de desempenho fornecidas pelos resultados. Abaixo está um exemplo de como os resultados são estruturados e interpretados:
+Nesta análise, comparamos o desempenho de quatro classificadores — Logistic Regression, LDA, QDA e Naive Bayes — aplicados aos conjuntos de dados MNIST e CIFAR-10. Utilizamos métricas essenciais como precisão (precision), recall, F1-score, suporte (support) e acurácia (accuracy) para avaliar a eficácia dos modelos em tarefas de classificação. Esses indicadores nos ajudam a entender a capacidade de cada modelo em prever corretamente as classes e lidar com diferentes níveis de complexidade dos dados. 
 
-### Estrutura da Tabela de Resultados
+Os resultados completos estão organizados na pasta `res`, que contém duas subpastas: `cifar10`, com os resultados referentes ao conjunto de dados CIFAR-10, e `mnist`, para os resultados do MNIST.
 
-Os resultados de desempenho dos classificadores são frequentemente apresentados em tabelas como a seguinte:
+### Interpretação das Tabelas
 
-```
-              precision    recall  f1-score   support
+Os resultados para cada classificador são apresentados em tabelas, organizados por classe. Aqui estão os principais elementos das tabelas:
 
-           0       1.00      1.00      1.00        50
-           1       0.87      0.97      0.92        40
-           2       0.93      0.96      0.95        45
-           3       0.98      0.90      0.94        50
-           4       1.00      1.00      1.00        36
-           5       1.00      0.94      0.97        51
-           6       0.98      0.96      0.97        53
-           7       1.00      1.00      1.00        37
-           8       0.89      0.93      0.91        42
-           9       0.98      0.98      0.98        46
+- **Precision (Precisão)**: Mede a exatidão das previsões positivas do modelo. Quanto maior a precisão, menos falsos positivos.
+- **Recall (Revocação)**: Mede a capacidade do modelo de capturar as instâncias positivas reais. Um recall alto indica menos falsos negativos.
+- **F1-Score**: Combina a precisão e recall em uma única métrica balanceada. Ideal para quando há um equilíbrio entre as duas métricas.
+- **Support (Suporte)**: Indica o número de instâncias reais de cada classe, útil para entender a distribuição de classes no conjunto de dados.
+- **Accuracy (Acurácia)**: Refere-se à porcentagem de previsões corretas feitas pelo modelo em relação ao total de instâncias.
+- **Macro Avg (Média Macro)**: A média simples de precision, recall e F1-score para todas as classes, dando igual peso a cada classe.
+- **Weighted Avg (Média Ponderada)**: A média ponderada das métricas, ajustada pelo suporte de cada classe. Útil quando as classes são desbalanceadas.
 
-    accuracy                           0.96       450
-   macro avg       0.96      0.96      0.96       450
-weighted avg       0.96      0.96      0.96       450
-```
+### Desempenho no MNIST
 
-- **Precision**: A proporção de verdadeiros positivos sobre o total de positivos previstos. Indica a acurácia das previsões positivas.
-- **Recall**: A proporção de verdadeiros positivos sobre o total de reais positivos. Mede a capacidade do modelo de identificar todas as instâncias positivas.
-- **F1-Score**: A média harmônica entre precisão e recall. É uma métrica única que considera tanto a precisão quanto o recall.
-- **Support**: O número de ocorrências reais da classe em questão.
-- **Accuracy**: A proporção geral de previsões corretas sobre o total de instâncias.
-- **Macro Avg**: A média das métricas para cada classe, tratando todas as classes igualmente.
-- **Weighted Avg**: A média ponderada das métricas para cada classe, ajustada pelo número de instâncias em cada classe.
+O conjunto de dados MNIST, que contém imagens de dígitos escritos à mão (0 a 9), mostrou um desempenho robusto com quase todos os classificadores. Vejamos alguns pontos de destaque:
 
-### Comparação de Resultados (MNIST vs CIFAR-10)
+- **Logistic Regression** e **LDA** atingiram uma acurácia de 96%, com F1-scores muito próximos entre si para todas as classes. As classes foram identificadas com alta precisão e recall, refletindo a natureza relativamente simples dos dígitos escritos à mão.
+- **QDA** teve a melhor performance no MNIST, alcançando 98% de acurácia, com excelente precisão e recall em quase todas as classes.
+- **Naive Bayes**, apesar de ter uma acurácia inferior (86%), ainda se saiu razoavelmente bem considerando a simplicidade do modelo. Notamos que sua performance é afetada principalmente nas classes com menor suporte.
 
-A comparação dos resultados entre MNIST e CIFAR-10 revela diferenças no desempenho dos classificadores devido às características distintas dos conjuntos de dados. MNIST, com suas imagens de dígitos manuscritos em tons de cinza, e CIFAR-10, com imagens coloridas e complexas, apresentam desafios variados para os classificadores. O desempenho em cada conjunto de dados pode variar significativamente, refletindo como as características dos dados influenciam a eficácia dos modelos.
+### Desempenho no CIFAR-10
 
-### Conclusão
+No caso do CIFAR-10, um conjunto de dados muito mais complexo, composto por imagens coloridas de objetos em 10 categorias, o desempenho dos classificadores foi substancialmente inferior:
 
-A análise detalhada dos resultados permite uma compreensão mais profunda das capacidades e limitações dos classificadores aplicados a diferentes conjuntos de dados. A comparação entre MNIST e CIFAR-10 destaca as influências das características dos dados no desempenho dos modelos, oferecendo insights valiosos sobre como melhorar e ajustar as abordagens de classificação para diferentes tipos de dados.
+- **Logistic Regression** e **LDA** tiveram uma acurácia de aproximadamente 40%. A precisão e o recall variam bastante entre as classes, refletindo a maior complexidade e variabilidade nas imagens do CIFAR-10. Isso indica que esses modelos lutam para capturar a diferença entre classes visuais tão diversas.
+- **QDA** obteve a melhor acurácia entre os classificadores testados (52%), com um F1-score superior em várias classes. Ainda assim, a performance está longe de ser ideal, mostrando que até os classificadores mais avançados têm dificuldade com este dataset.
+- **Naive Bayes** foi o pior classificador no CIFAR-10, com uma acurácia de apenas 31%. Isso reflete que a suposição ingênua de independência entre os pixels não é apropriada para um conjunto de dados com alta variabilidade espacial e de cores.
+
+### Comparação Geral entre MNIST e CIFAR-10
+
+A disparidade nos resultados entre MNIST e CIFAR-10 pode ser explicada pela diferença fundamental na natureza dos dados:
+
+- **Simplicidade do MNIST**: As imagens são em preto e branco, com baixa variação intra-classe (dígitos manuscritos), o que facilita a identificação dos padrões pelos classificadores. Isso se reflete nas acurácias altas, acima de 90% para quase todos os métodos.
+- **Complexidade do CIFAR-10**: As imagens têm cores, maior resolução e contêm objetos muito variados. Isso torna a tarefa de classificação mais difícil, especialmente para modelos mais simples como Naive Bayes e Logistic Regression, que não são capazes de capturar eficientemente as complexidades dos padrões visuais.
+
+## Conclusão
+
+O desempenho dos classificadores no MNIST é significativamente melhor do que no CIFAR-10 devido à simplicidade dos dados no primeiro conjunto. MNIST, com suas imagens de dígitos simples e em preto e branco, é muito mais fácil de classificar. Em contraste, CIFAR-10 apresenta desafios complexos, como imagens coloridas e de maior variação, exigindo modelos mais avançados e adequados para a classificação de imagens complexas. 
+
+Modelos lineares, como Logistic Regression e LDA, funcionam bem no MNIST, mas falham no CIFAR-10, indicando que conjuntos de dados mais complexos precisam de classificadores mais sofisticados e de técnicas que capturam a estrutura não-linear dos dados.
